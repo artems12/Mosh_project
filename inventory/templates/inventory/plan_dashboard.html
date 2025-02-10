@@ -1,0 +1,67 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+	<div class="d-flex justify-content-center">
+<h1>План Закупок</h1>
+	</div>
+	{% if messages %}
+		<div class="row mt-3">
+			{% for message in messages %}
+				{% if message.tags == 'error' %}
+					<div class="col-md-10 col-12 mx-auto alert alert-danger">
+						{{ message }}
+					</div>
+				{% else %}
+					<div class="col-md-10 col-12 mx-auto alert alert-success">
+						{{ message }}
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endif %}
+	<div class="row">
+		<div class="col-md-10 col-12 mx-auto mt-5">
+
+			<div class="d-flex justify-content-end">
+				<a href="{% url 'add-plan' %}" class="btn btn-primary">добавить план</a>
+			</div>
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Название</th>
+						<th scope="col">Количество</th>
+						<th scope="col">Состояние</th>
+						<th scope="col">Владелец</th>
+						<th scope="col">Поставщик</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if plans|length == 0 %}
+					<tr>
+						<th scope="row">-</th>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					{% endif %}
+
+					{% for plan in plans %}
+					<tr>
+						<th scope="row">{{ plan.id }}</th>
+						<td>{{ plan.name }}</td>
+						<td>{{ plan.quantity }}</td>
+						<td>{{ plan.category.name }}</td>
+						<td>{{ plan.user }}</td>
+						<td>{{ plan.supplier }}</td>
+						<td><a href="{% url 'edit-plan' plan.id %}" class="btn btn-info">Редактировать</a></td>
+						<td><a href="{% url 'delete-plan' plan.id %}" class="btn btn-secondary">Удалить</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock content %}

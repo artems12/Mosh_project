@@ -1,0 +1,16 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+	<div>
+		<a href="{% url 'dashboard-plan' %}" class="btn btn-outline-primary my-3 mx-4">Назад</a>
+		<div class="row">
+			<form method="POST" class="col-sm-11 col-md-4 mx-auto mt-5">
+				{% csrf_token %}
+				<h1 class="fw-light">Вы уверены что хотите удалить {{plan.name}} из запланированных покупок?</h1>
+				<div>
+					<button class="btn btn-secondary">Удалить</button>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

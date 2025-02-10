@@ -1,0 +1,46 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+	<div class="d-flex justify-content-center">
+<h1>Заявки</h1>
+	</div>
+	<div class="col-md-10 col-12 mx-auto mt-6">
+
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Название</th>
+						<th scope="col">Количество</th>
+						<th scope="col">Состояние</th>
+						<th scope="col">Комментарий</th>
+						<th scope="col">Пользователь</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if applications|length == 0 %}
+					<tr>
+						<th scope="row">-</th>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					{% endif %}
+
+					{% for application in applications %}
+					<tr>
+						<th scope="row">{{ application.id }}</th>
+						<td>{{ application.name }}</td>
+						<td>{{ application.quantity }}</td>
+						<td>{{ application.category.name }}</td>
+						<td>{{ application.comment }}</td>
+						<td>{{ application.user }}</td>
+						<td><a href="{% url 'accept-application' application.id %}" class="btn btn-success">Принять</a></td>
+						<td><a href="{% url 'decline-application' application.id %}" class="btn btn-secondary">Отклонить</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% endblock content %}

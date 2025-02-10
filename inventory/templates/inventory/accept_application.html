@@ -1,0 +1,19 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+	<div>
+		<a href="{% url 'application-admin-list' %}" class="btn btn-outline-primary my-3 mx-4">Назад</a>
+		<div class="row">
+			<form method="POST" class="col-sm-11 col-md-4 mx-auto mt-5">
+				{% csrf_token %}
+				<h1 class="fw-light">Вы уверены что хотите принять заявку и добавить {{ application.name }} в план закупок?</h1>
+				<div>
+					 <form action="{% url 'accept-application' application.id %}" method="post">
+                  {% csrf_token %}
+                   <button type="submit" class="btn btn-success">Принять заявку</button>
+              </form>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock content %}

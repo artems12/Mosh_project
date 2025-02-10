@@ -1,0 +1,44 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+	<div class="d-flex justify-content-center">
+<h1>Мои заявки</h1>
+	</div>
+	<div class="col-md-10 col-12 mx-auto mt-5">
+		<div class="d-flex justify-content-end">
+				<a href="{% url 'add-application' %}" class="btn btn-primary">Создать заявку</a>
+</div>
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Название</th>
+						<th scope="col">Количество</th>
+						<th scope="col">Состояние</th>
+						<th scope="col">Комментарий</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% if applications|length == 0 %}
+					<tr>
+						<th scope="row">-</th>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					{% endif %}
+
+					{% for application in applications %}
+					<tr>
+						<th scope="row">{{ application.id }}</th>
+						<td>{{ application.name }}</td>
+						<td>{{ application.quantity }}</td>
+						<td>{{ application.category.name }}</td>
+						<td>{{ application.comment }}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+{% endblock content %}
